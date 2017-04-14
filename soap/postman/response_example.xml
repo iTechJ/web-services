@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
+    <S:Body>
+        <ns2:place-orderResponse xmlns:ns2="http://itechart.com/delivery">
+            <ns2:order-response>
+                <order-no>189utfvhhtnp2fj0h557cuu4v4</order-no>
+                <address>minsk, tolstogo, 10</address>
+                <delivery-time>15:53:18.454</delivery-time>
+                <total-price>62</total-price>
+            </ns2:order-response>
+        </ns2:place-orderResponse>
+    </S:Body>
+</S:Envelope>

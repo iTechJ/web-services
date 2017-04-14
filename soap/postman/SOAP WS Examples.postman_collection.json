@@ -1,0 +1,51 @@
+{
+	"variables": [],
+	"info": {
+		"name": "SOAP WS Examples",
+		"_postman_id": "fd073361-cdbe-0295-7546-86748a2321a3",
+		"description": "Several examples for SOAP Web Service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "localhost:8080/DeliveryService",
+			"request": {
+				"url": "localhost:8080/DeliveryService",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/xml",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:fd=\"http://itechart.com/delivery\">\r\n <soapenv:Header/>\r\n   <soapenv:Body>\r\n      <fd:place-order>\r\n         <order>\r\n         \t<customer-name>Vasya</customer-name>\r\n            <positions>\r\n            \t<position>\r\n            \t\t<name>pizza</name>\r\n            \t\t<price>10</price>\r\n            \t\t<amount>3</amount>\r\n            \t</position>\r\n            \t<position>\r\n            \t\t<name>sushi</name>\r\n            \t\t<amount>4</amount>\r\n            \t\t<price>8</price>\r\n            \t</position>\r\n            </positions>\r\n            <address>minsk, tolstogo, 10</address>\r\n            <phone>7788</phone>\r\n            <comment>please call before arriving</comment>\r\n            <order-time>01:40</order-time>\r\n         </order>\r\n      </fd:place-order>\r\n   </soapenv:Body>\r\n</soapenv:Envelope>"
+				},
+				"description": "Valid request with all fields filled"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/DeliveryService",
+			"request": {
+				"url": "localhost:8080/DeliveryService",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/xml",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:fd=\"http://itechart.com/delivery\">\r\n <soapenv:Header/>\r\n   <soapenv:Body>\r\n      <fd:place-order>\r\n         <order>\r\n            <positions>\r\n            \t<position>\r\n            \t\t<name>sushi</name>\r\n            \t\t<amount>4</amount>\r\n            \t\t<price>8</price>\r\n            \t</position>\r\n            </positions>\r\n            <address>minsk, tolstogo, 10</address>\r\n         </order>\r\n      </fd:place-order>\r\n   </soapenv:Body>\r\n</soapenv:Envelope>"
+				},
+				"description": "Invalid request"
+			},
+			"response": []
+		}
+	]
+}

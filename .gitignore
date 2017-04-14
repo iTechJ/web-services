@@ -1,0 +1,6 @@
+*.iml
+target/
+soap/target
+rest/target
+.idea/
+soap/src/main/webapp/WEB-INF/lib/
