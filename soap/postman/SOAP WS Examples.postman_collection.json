@@ -2,15 +2,15 @@
 	"variables": [],
 	"info": {
 		"name": "SOAP WS Examples",
-		"_postman_id": "fd073361-cdbe-0295-7546-86748a2321a3",
+		"_postman_id": "c0028702-335b-4446-cdd5-ac11e11a1e12",
 		"description": "Several examples for SOAP Web Service",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "localhost:8080/DeliveryService",
+			"name": "valid order request",
 			"request": {
-				"url": "localhost:8080/DeliveryService",
+				"url": "localhost:8080/soap/DeliveryService",
 				"method": "POST",
 				"header": [
 					{
@@ -28,9 +28,9 @@
 			"response": []
 		},
 		{
-			"name": "localhost:8080/DeliveryService",
+			"name": "invalid order request",
 			"request": {
-				"url": "localhost:8080/DeliveryService",
+				"url": "localhost:8080/soap/DeliveryService",
 				"method": "POST",
 				"header": [
 					{

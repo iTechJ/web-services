@@ -1,9 +1,9 @@
 package com.itechart.javalab.webservice.rest.model;
 
 import com.google.common.base.Strings;
+import com.itechart.javalab.webservice.rest.util.IdGenerator;
 import com.itechart.javalab.webservice.rest.util.LocalDateTimeAdapter;
 
-import javax.persistence.*;
 import javax.xml.bind.annotation.*;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.math.BigDecimal;
@@ -11,10 +11,9 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity
-@XmlRootElement(name = "Article")
+@XmlRootElement(name = "Product")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Article {
+public class Product {
 
     private Integer id;
 
@@ -26,18 +25,28 @@ public class Article {
 
     private BigDecimal price = BigDecimal.ZERO;
 
-    private String address;
+    private Integer amount;
 
-    @XmlElementWrapper(name = "comments")
-    @XmlElement(name = "comment")
-    private Set<Comment> comments = new HashSet<>();
+    @XmlElementWrapper
+    @XmlElement(name = "review")
+    private Set<Review> reviews = new HashSet<>();
 
     @XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
     private LocalDateTime modifiedDateTime = LocalDateTime.now();
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ARTICLE_ID")
+    public Product() {
+
+    }
+
+    public Product(String title, String description, String category, BigDecimal price, Integer amount) {
+        this.title = title;
+        this.description = description;
+        this.category = category;
+        this.price = price;
+        this.amount = amount;
+        this.id = IdGenerator.nextId();
+    }
+
     public Integer getId() {
         return id;
     }
@@ -78,12 +87,12 @@ public class Article {
         this.price = price;
     }
 
-    public String getAddress() {
-        return address;
+    public Integer getAmount() {
+        return amount;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setAmount(Integer amount) {
+        this.amount = amount;
     }
 
     public LocalDateTime getModifiedDateTime() {
@@ -94,13 +103,12 @@ public class Article {
         this.modifiedDateTime = modifiedDate;
     }
 
-    @OneToMany(targetEntity = Comment.class, orphanRemoval = true, mappedBy = "article", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    public Set<Comment> getComments() {
-        return comments;
+    public Set<Review> getReviews() {
+        return reviews;
     }
 
-    public void setComments(Set<Comment> comments) {
-        this.comments = comments;
+    public void setReviews(Set<Review> reviews) {
+        this.reviews = reviews;
     }
 
     public static String getReportHeader(String separator) {
@@ -109,7 +117,7 @@ public class Article {
                 "description" + separator +
                 "category" + separator +
                 "price" + separator +
-                "address" + separator +
+                "amount" + separator +
                 "modifiedDateTime";
     }
 
@@ -119,7 +127,7 @@ public class Article {
                 appendDQ(Strings.nullToEmpty(description)) + separator +
                 appendDQ(Strings.nullToEmpty(category)) + separator +
                 appendDQ(String.valueOf(price)) + separator +
-                appendDQ(Strings.nullToEmpty(address)) + separator +
+                appendDQ(String.valueOf(amount)) + separator +
                 modifiedDateTime;
     }
 

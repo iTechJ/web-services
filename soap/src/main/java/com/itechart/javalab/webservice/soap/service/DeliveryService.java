@@ -26,8 +26,8 @@ public class DeliveryService {
     private Logger logger = LogManager.getLogger(DeliveryService.class);
 
     @WebMethod(operationName = "place-order")
-    @WebResult(name = "order-response", targetNamespace = "http://itechart.com/delivery")
-    public OrderResponse placeOrder(@WebParam(name = "order", targetNamespace = "http://itechart.com/delivery") Order order) {
+    @WebResult(name = "order-response")
+    public OrderResponse placeOrder(@WebParam(name = "order") Order order) {
         if (!validate(order)) {
             throw new IllegalArgumentException("Fill all order fields");
         }

@@ -2,7 +2,7 @@
 	"variables": [],
 	"info": {
 		"name": "REST WS Examples",
-		"_postman_id": "2d6ada71-b320-1630-59c0-73ddc878757d",
+		"_postman_id": "fc3b1024-42ac-3b21-047d-652068a0c85a",
 		"description": "Examples for REST web-service. Simple CRUD + different content-type example",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
@@ -12,9 +12,9 @@
 			"description": "",
 			"item": [
 				{
-					"name": "create article",
+					"name": "create product",
 					"request": {
-						"url": "localhost:8080/market/article",
+						"url": "localhost:8080/rest/market/product",
 						"method": "POST",
 						"header": [
 							{
@@ -25,16 +25,16 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"skirt\",\r\n    \"description\": \"color: red, length: midi\",\r\n    \"category\":\"clothes\",\r\n    \"price\":100,\r\n    \"address\": \"Minsk\"\r\n}"
+							"raw": "{\r\n    \"title\": \"skirt\",\r\n    \"description\": \"color: red, length: midi\",\r\n    \"category\":\"clothes\",\r\n    \"price\":100,\r\n    \"amount\": 11\r\n}"
 						},
 						"description": "status code 201"
 					},
 					"response": []
 				},
 				{
-					"name": "update article",
+					"name": "update product",
 					"request": {
-						"url": "localhost:8080/market/article/3",
+						"url": "localhost:8080/rest/market/product/3",
 						"method": "PUT",
 						"header": [
 							{
@@ -45,14 +45,14 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\t\r\n\t\"title\":\"Light Sword\",\r\n    \"description\": \"May the Force be with you\",\r\n    \"category\": \"Weapon\",\r\n    \"price\": 1000,\r\n    \"address\": \"a galaxy far, far away\"\r\n}"
+							"raw": "{\t\r\n\t\"title\":\"Light Sword\",\r\n    \"description\": \"May the Force be with you\",\r\n    \"category\": \"Weapon\",\r\n    \"price\": 1000,\r\n    \"amount\":12\r\n}"
 						},
 						"description": "status code 200"
 					},
 					"response": []
 				},
 				{
-					"name": "delete article",
+					"name": "delete product",
 					"request": {
 						"url": "localhost:8080/market/article/3",
 						"method": "DELETE",
@@ -72,9 +72,9 @@
 					"response": []
 				},
 				{
-					"name": "get single article",
+					"name": "get single product",
 					"request": {
-						"url": "localhost:8080/market/article/1",
+						"url": "localhost:8080/rest/market/product/2",
 						"method": "GET",
 						"header": [],
 						"body": {},
@@ -83,9 +83,30 @@
 					"response": []
 				},
 				{
-					"name": "search articles (text)",
+					"name": "search products (text)",
 					"request": {
-						"url": "http://localhost:8080/market/article?searchText=java",
+						"url": {
+							"raw": "http://localhost:8080/rest/market/product?searchText=red",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rest",
+								"market",
+								"product"
+							],
+							"query": [
+								{
+									"key": "searchText",
+									"value": "red",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
 						"method": "GET",
 						"header": [],
 						"body": {},
@@ -94,9 +115,30 @@
 					"response": []
 				},
 				{
-					"name": "search articles (price)",
+					"name": "search products (price)",
 					"request": {
-						"url": "http://localhost:8080/market/article?maxPrice=10000",
+						"url": {
+							"raw": "http://localhost:8080/rest/market/product?maxPrice=100",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rest",
+								"market",
+								"product"
+							],
+							"query": [
+								{
+									"key": "maxPrice",
+									"value": "100",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
 						"method": "GET",
 						"header": [],
 						"body": {},
@@ -105,9 +147,36 @@
 					"response": []
 				},
 				{
-					"name": "search articles (dates)",
+					"name": "search products (mixed filter)",
 					"request": {
-						"url": "http://localhost:8080/market/article?maxPrice=10000",
+						"url": {
+							"raw": "http://localhost:8080/rest/market/product?maxPrice=1000&searchText=red",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rest",
+								"market",
+								"product"
+							],
+							"query": [
+								{
+									"key": "maxPrice",
+									"value": "1000",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "searchText",
+									"value": "red",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
 						"method": "GET",
 						"header": [],
 						"body": {},
@@ -116,31 +185,9 @@
 					"response": []
 				},
 				{
-					"name": "search articles (pagination)",
+					"name": "create review for a product",
 					"request": {
-						"url": "http://localhost:8080/market/article?page=2&size=3",
-						"method": "GET",
-						"header": [],
-						"body": {},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "search articles (mixed filter)",
-					"request": {
-						"url": "http://localhost:8080/market/article?maxPrice=100000&searchText=friend&dateFrom=20170101&dateTo=20171231&page=1&size=5",
-						"method": "GET",
-						"header": [],
-						"body": {},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "create comment for article",
-					"request": {
-						"url": "localhost:8080/market/article/1/comment",
+						"url": "localhost:8080/rest/market/product/1/review",
 						"method": "POST",
 						"header": [
 							{
@@ -151,7 +198,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"text\": \"so nice, i wanna pick it up\",\r\n    \"username\": \"John Doe\"\r\n}"
+							"raw": "{\r\n    \"text\": \"nice\",\r\n    \"username\": \"John Doe\"\r\n}"
 						},
 						"description": "status code 201"
 					},
@@ -166,7 +213,7 @@
 				{
 					"name": "create JSON",
 					"request": {
-						"url": "localhost:8080/market/article",
+						"url": "localhost:8080/rest/market/product",
 						"method": "POST",
 						"header": [
 							{
@@ -177,7 +224,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"skirt\",\r\n    \"description\": \"color: red, length: midi\",\r\n    \"category\":\"clothes\",\r\n    \"price\":100,\r\n    \"address\": \"Minsk\"\r\n}"
+							"raw": "{\r\n    \"title\": \"skirt\",\r\n    \"description\": \"color: red, length: midi\",\r\n    \"category\":\"clothes\",\r\n    \"price\":100,\r\n    \"amount\": 10\r\n}"
 						},
 						"description": "Create Article (JSON)"
 					},
@@ -186,7 +233,7 @@
 				{
 					"name": "create XML",
 					"request": {
-						"url": "localhost:8080/market/article",
+						"url": "localhost:8080/rest/market/product",
 						"method": "POST",
 						"header": [
 							{
@@ -202,7 +249,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "<Article>\r\n\t<title>skirt</title>\r\n\t<description>color: red, length: midi</description>\r\n\t<category>clothes</category>\r\n\t<price>100</price>\r\n\t<address>Minsk</address>\r\n</Article>"
+							"raw": "<Product>\r\n\t<title>skirt</title>\r\n\t<description>color: red, length: midi</description>\r\n\t<category>clothes</category>\r\n\t<price>100</price>\r\n\t<amount>11</amount>\r\n</Product>"
 						},
 						"description": "Create Article (XML)"
 					},
@@ -211,7 +258,28 @@
 				{
 					"name": "search (XML)",
 					"request": {
-						"url": "http://localhost:8080/market/article?searchText=java",
+						"url": {
+							"raw": "http://localhost:8080/rest/market/product?searchText=red",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rest",
+								"market",
+								"product"
+							],
+							"query": [
+								{
+									"key": "searchText",
+									"value": "red",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
 						"method": "GET",
 						"header": [
 							{
@@ -234,7 +302,7 @@
 				{
 					"name": "404 (Entity not found)",
 					"request": {
-						"url": "localhost:8080/market/article/999",
+						"url": "localhost:8080/rest/market/product/999",
 						"method": "PUT",
 						"header": [
 							{
@@ -245,7 +313,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"skirt\",\r\n    \"description\": \"color: red, length: midi\",\r\n    \"category\":\"clothes\",\r\n    \"price\":100,\r\n    \"address\": \"Minsk\"\r\n}"
+							"raw": "{\r\n    \"title\": \"skirt\",\r\n    \"description\": \"color: red, length: midi\",\r\n    \"category\":\"clothes\",\r\n    \"price\":100,\r\n    \"amount\": 55\r\n}"
 						},
 						"description": "Invalid Update request - should be 404 status code"
 					},
@@ -254,12 +322,18 @@
 				{
 					"name": "422 (Invalid request)",
 					"request": {
-						"url": "http://localhost:8080/market/article?dateFrom=20170303&dateTo=20160303",
-						"method": "GET",
-						"header": [],
+						"url": "http://localhost:8080/rest/market/product",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": ""
+							"raw": "{\r\n    \"title\": \"skirt\",\r\n    \"description\": \"One advanced diverted domestic sex repeated bringing you old. Possible procured her trifling laughter thoughts property she met way. Companions shy had solicitude favourable own. Which could saw guest man now heard but. Lasted my coming uneasy marked so should. Gravity letters it amongst herself dearest an windows by. Wooded ladies she basket season age her uneasy saw. Discourse unwilling am no described dejection incommode no listening of. Before nature his parish boy. \",\r\n    \"category\":\"clothes\",\r\n    \"price\":100,\r\n    \"amount\": 55\r\n}"
 						},
 						"description": "Invalid search request"
 					},
@@ -268,7 +342,7 @@
 				{
 					"name": "406 (Not acceptable)",
 					"request": {
-						"url": "http://localhost:8080/market/article?page=2&size=3",
+						"url": "http://localhost:8080/rest/market/product",
 						"method": "GET",
 						"header": [
 							{
@@ -285,7 +359,7 @@
 				{
 					"name": "400 (Bad request)",
 					"request": {
-						"url": "localhost:8080/market/article",
+						"url": "localhost:8080/rest/market/product",
 						"method": "POST",
 						"header": [
 							{
@@ -301,7 +375,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "<article>\r\n\t<title>skirt</title>\r\n\t<description>color: red, length: midi</description>\r\n\t<category>clothes</category>\r\n\t<price>100</price>\r\n\t<address>Minsk</address>\r\n</article>"
+							"raw": "<product>\r\n\t<title>skirt</title>\r\n\t<description>color: red, length: midi</description>\r\n\t<category>clothes</category>\r\n\t<price>100</price>\r\n\t<amount>11</amount>\r\n</product>"
 						},
 						"description": "Request cannot be parsed"
 					},
@@ -310,7 +384,7 @@
 				{
 					"name": "415 (Unsupported media type)",
 					"request": {
-						"url": "localhost:8080/market/article",
+						"url": "localhost:8080/rest/market/product",
 						"method": "POST",
 						"header": [],
 						"body": {

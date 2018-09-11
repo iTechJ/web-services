@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rest Service</title>
+    <script>
+        function print(response) {
+            var count = response.totalCount;
+
+            if (count > 0) {
+                var products = Number(count) === 1 ? [response.products.product] : response.products.product;
+                var productsTable = "<table style='border-spacing: 40px 10px'>" +
+                    "<tr>" +
+                    "<th>Name</th>" +
+                    "<th>Category</th>" +
+                    "<th>Price</th>" +
+                    "</tr>";
+                products.forEach(function(product) {
+                    productsTable = productsTable + "<tr>" +
+                        "<td>" + product.title + "</td>" +
+                        "<td>" + product.category + "</td>" +
+                        "<td>" + product.price + "</td>" +
+                        "</tr>";
+                });
+                productsTable = productsTable + "</table>";
+                document.getElementById("count").innerHTML = "<label> Product Count: " + count + " </label>";
+
+                document.getElementById("products").innerHTML = productsTable;
+            } else {
+                document.getElementById("count").innerHTML = null;
+                document.getElementById("products").innerHTML = "<label> Products not found </label>";
+            }
+        }
+        function search() {
+            var searchText = document.getElementById("searchText").value;
+            var price = document.getElementById("maxPrice").value;
+
+            var query = "http://localhost:8080/rest/market/product?searchText=" + searchText + "&maxPrice=" + price;
+            var headers = new Headers({
+                'Content-Type': 'application/json'
+            });
+
+            fetch(query, {
+                method: "GET",
+                headers: headers,
+                mode: 'cors'
+            }).then(function(response) {
+                return response.json();
+            }).then(function (response) {
+                print(response);
+            });
+
+        }
+    </script>
+</head>
+<body>
+    <div style="display: flex; padding: 50px; font-size: 30px">
+        <div style="padding: 30px">
+            <label for="searchText"> Text: </label>
+            <input id="searchText" style="height: 30px"/>
+        </div>
+        <div style="padding: 30px">
+            <label for="maxPrice"> Price: </label>
+            <input id="maxPrice" style="height: 30px" />
+        </div>
+        <div style="padding: 30px">
+            <button id="tester" onclick="search()" style="display:block;font-size: 30px">Search products</button>
+        </div>
+
+    </div>
+    <div style="padding: 0 30px; font-size: 30px">
+        <div id="count">
+
+        </div>
+        <div id="products">
+
+        </div>
+    </div>
+
+</body>
+</html>
